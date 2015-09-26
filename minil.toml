@@ -1,0 +1,6 @@
+name = "Devel-Scope-Guard-Sub-MeasureTime"
+# badges = ["travis"]
+authority="cpan:MOZNION"
+
+module_maker="ModuleBuildTiny"
+
