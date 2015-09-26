@@ -10,11 +10,18 @@ our $VERSION = "0.01";
 our @EXPORT_OK = qw/measure_sub_time/;
 
 sub measure_sub_time {
+    my $subname = shift;
+
     my @caller = caller;
     warn "[WARNING!!!] ENABLED MEASURING TIME (called `measure_sub_time()`) at $caller[1] line $caller[2]\n";
 
     my ($package, $filename, $line, $subroutine) = caller(1);
-    $subroutine =~ s/::/#/g;
+
+    my @sub_items = split /::/, $subroutine;
+    if ($subname) {
+        $sub_items[-1] = $subname;
+    }
+    $subroutine = join('::', @sub_items[0..(scalar(@sub_items) - 2)]) . '#' . $sub_items[-1];
 
     # >>> Start to measure time
     my $time = [gettimeofday];
